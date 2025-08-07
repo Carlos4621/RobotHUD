@@ -1,0 +1,61 @@
+# Directorios de build
+build/
+build-*/
+*build*
+
+# Archivos generados por CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Archivos generados por Qt
+*.moc
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+
+# Archivos de compilación
+*.o
+*.obj
+*.so
+*.dll
+*.dylib
+*.a
+*.lib
+
+# Ejecutables
+RobotHUD
+RobotHUD.exe
+
+# Archivos de depuración
+*.pdb
+*.dSYM/
+
+# Archivos temporales
+*~
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Archivos de IDEs
+.vscode/
+.idea/
+*.user
+*.pro.user*
+*.vcxproj.user
+
+# Archivos de Qt Creator
+*.autosave
+*.creator.user*
+
+# Archivos de Visual Studio
+*.vs/
+*.vcxproj
+*.vcxproj.filters
+*.sln
+
+compile_commands.json
