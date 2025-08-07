@@ -1,0 +1,3 @@
+[submodule "EasyLoRa_Widget"]
+	path = EasyLoRa_Widget
+	url = https://github.com/Carlos4621/EasyLoRa_Widget

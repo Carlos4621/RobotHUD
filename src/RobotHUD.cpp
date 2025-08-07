@@ -1,5 +1,6 @@
 #include "RobotHUD.h"
 #include "ui_RobotHUD.h"
+#include "EasyLoRa_Widget.h"
 
 RobotHUD::RobotHUD(QWidget *parent)
 : QMainWindow{ parent }
