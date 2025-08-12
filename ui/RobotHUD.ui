@@ -23,10 +23,10 @@
    <widget class="EasyLoRa_Widget" name="easyLoRaWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>40</y>
-      <width>400</width>
-      <height>300</height>
+      <x>160</x>
+      <y>120</y>
+      <width>381</width>
+      <height>211</height>
      </rect>
     </property>
     <property name="toolTip">
@@ -71,7 +71,7 @@
   <customwidget>
    <class>EasyLoRa_Widget</class>
    <extends>QWidget</extends>
-   <header>easylora_widget.h</header>
+   <header>EasyLoRa_Widget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

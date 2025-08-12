@@ -1,3 +1,6 @@
 [submodule "EasyLoRa_Widget"]
 	path = EasyLoRa_Widget
 	url = https://github.com/Carlos4621/EasyLoRa_Widget
+[submodule "RobotHUD_Proto"]
+	path = RobotHUD_Proto
+	url = https://github.com/Carlos4621/RobotHUD_Proto

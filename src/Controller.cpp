@@ -4,14 +4,14 @@ Controller::Controller(QObject *parent)
 : QObject{ parent }
 , refreshTimer_m{ new QTimer{this} }
 {
+    if (SDL_Init(SDL_INIT_GAMECONTROLLER) != 0) {
+        throw SDLError{ SDL_GetError() };
+    }
+
     connect(refreshTimer_m, &QTimer::timeout, this, &Controller::refreshController);
 
     refreshTimer_m->setInterval(Refresh_Rate_In_Ms);
     refreshTimer_m->start();
-
-    if (SDL_Init(SDL_INIT_GAMECONTROLLER) != 0) {
-        throw SDLError{ SDL_GetError() };
-    }
 }
 
 Controller::~Controller() noexcept {
@@ -26,7 +26,7 @@ void Controller::setID(uint8_t ID) {
     }
 }
 
-ControllerData Controller::getData() const noexcept {
+Controller_Data Controller::getData() const noexcept {
     if (!controller_m) {
         return {};
     }
@@ -55,6 +55,7 @@ void Controller::refreshController() {
 
     SDL_GameControllerUpdate();
     
-    data_m.rightAxisX = mapAxis(SDL_GameControllerGetAxis(controller_m, SDL_CONTROLLER_AXIS_RIGHTX));
-    data_m.rightAxisY = mapAxis(SDL_GameControllerGetAxis(controller_m, SDL_CONTROLLER_AXIS_RIGHTY));
+    data_m.mutable_rightjoystick()->set_x_axis(mapAxis(SDL_GameControllerGetAxis(controller_m, SDL_CONTROLLER_AXIS_RIGHTX)));
+    data_m.mutable_rightjoystick()->set_y_axis(mapAxis(SDL_GameControllerGetAxis(controller_m, SDL_CONTROLLER_AXIS_RIGHTY)));
 }
+

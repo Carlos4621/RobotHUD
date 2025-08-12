@@ -5,31 +5,7 @@
 #include <SDL.h>
 #include <QTimer>
 #include "RobotHUDExceptions.h"
-
-struct ControllerData {
-    int8_t rightAxisX;
-    int8_t rightAxisY;
-
-    int8_t leftAxisX;
-    int8_t leftAxisY;
-
-    int8_t leftTrigger;
-    int8_t rightTrigger;
-
-    bool buttonA;
-    bool buttonB;
-    bool buttonX;
-    bool buttonY;
-    bool buttonStart;
-    bool buttonSelect;
-    bool rightButton;
-    bool leftButton;
-
-    bool padUp;
-    bool padDown;
-    bool padLeft;
-    bool pasRight;
-};
+#include "Controller_Data.pb.h"
 
 class Controller : public QObject 
 {
@@ -45,7 +21,7 @@ public:
     void setID(uint8_t ID);
 
     [[nodiscard]]
-    ControllerData getData() const noexcept;
+    Controller_Data getData() const noexcept;
 
     void setDeadZone(uint8_t deadZone) noexcept;
 
@@ -60,7 +36,7 @@ private:
 
     SDL_GameController* controller_m{ nullptr };
     QTimer* refreshTimer_m;
-    ControllerData data_m;
+    Controller_Data data_m;
     uint8_t deadZone_m{ Default_Dead_Zone };
 
     [[nodiscard]]

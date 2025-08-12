@@ -9,11 +9,6 @@ RobotHUD::RobotHUD(QWidget *parent)
 , testTimer_m{ new QTimer{this} }
 {
     ui->setupUi(this);
-
-    connect(testTimer_m, &QTimer::timeout, this, &RobotHUD::testController);
-
-    testTimer_m->setInterval(20);
-    testTimer_m->start();
 }
 
 RobotHUD::~RobotHUD() {
