@@ -23,8 +23,8 @@
    <widget class="QPushButton" name="buttonTest">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>310</y>
+      <x>90</x>
+      <y>200</y>
       <width>88</width>
       <height>26</height>
      </rect>
@@ -32,6 +32,32 @@
     <property name="text">
      <string>test!</string>
     </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>0</y>
+      <width>273</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="labelConnectionMode">
+       <property name="text">
+        <string>Actual connection mode:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelDisplayConnection">
+       <property name="text">
+        <string>No connection</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

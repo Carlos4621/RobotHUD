@@ -22,6 +22,9 @@ public:
 
     std::shared_ptr<EasyLoRa> getDevice() const noexcept;
 
+signals:
+    void succesfulConnection();
+
 private slots:
     void onPushConnect();
     void onPushApply();

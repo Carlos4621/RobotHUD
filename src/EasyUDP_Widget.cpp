@@ -17,6 +17,8 @@ EasyUDP_Widget::~EasyUDP_Widget() noexcept {
 
 void EasyUDP_Widget::onPushConnect() {
     device_m = std::make_shared<EasyUDP>(ui->lineIP->text().toStdString(), ui->linePort->text().toStdString());
+
+    emit succesfulConnection();
 }
 
 std::shared_ptr<EasyUDP> EasyUDP_Widget::getDevice() {

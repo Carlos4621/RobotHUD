@@ -59,6 +59,7 @@ set(HEADERS
     include/EasyLoRa_Widget.h
     include/EasyUDP_Widget.h
     EasyUDP/EasyUDP.h
+    EasyUDP/IOCommons.hpp
     ${PROTO_HDRS}
 )
 

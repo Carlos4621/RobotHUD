@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <memory>
-#include "UDPTransmisor.h"
+#include "EasyUDP.h"
 
 QT_BEGIN_NAMESPACE
 class QWidget;
@@ -20,6 +20,9 @@ public:
     ~EasyUDP_Widget() noexcept;
 
     std::shared_ptr<EasyUDP> getDevice();
+
+signals:
+    void succesfulConnection();
 
 private slots:
 

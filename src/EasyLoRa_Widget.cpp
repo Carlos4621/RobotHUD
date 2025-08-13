@@ -225,6 +225,8 @@ void EasyLoRa_Widget::onPushConnect() {
 
         refreshConfiguration();
         ui->widget_configurations->setEnabled(true);
+
+        emit succesfulConnection();
     }
     catch(const std::exception& e) {
         showErrorMessage(e.what());

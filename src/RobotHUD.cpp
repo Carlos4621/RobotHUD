@@ -22,6 +22,9 @@ RobotHUD::RobotHUD(QWidget *parent)
 
     connect(ui->buttonTest, &QPushButton::pressed, this, &RobotHUD::startTestTimer);
     connect(testTimer_m, &QTimer::timeout, this, &RobotHUD::testController);
+
+    connect(easyLoRaWidget_m, &EasyLoRa_Widget::succesfulConnection, this, &RobotHUD::onLoRaConnected);
+    connect(easyUDPWidget_m, &EasyUDP_Widget::succesfulConnection, this, &RobotHUD::onUDPConnected);
 }
 
 RobotHUD::~RobotHUD() {
@@ -32,11 +35,21 @@ void RobotHUD::startTestTimer() {
     testTimer_m->start();
 }
 
+void RobotHUD::onLoRaConnected() {
+    device_m = easyLoRaWidget_m->getDevice();
+    ui->labelDisplayConnection->setText("LoRa");
+}
+
+void RobotHUD::onUDPConnected() {
+    device_m = easyUDPWidget_m->getDevice();
+    ui->labelDisplayConnection->setText("WiFi");
+}
+
 void RobotHUD::testController() {
     const auto controllerData{ controller_m->getData() };
 
     std::string toSend;
     controllerData.SerializeToString(&toSend);
 
-    easyUDPWidget_m->getDevice()->sendData(toSend);
+    device_m->sendData(toSend);
 }
