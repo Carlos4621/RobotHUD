@@ -19,20 +19,24 @@
   <property name="windowTitle">
    <string>Robot HUD</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="EasyLoRa_Widget" name="easyLoRaWidget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>120</y>
-      <width>381</width>
-      <height>211</height>
-     </rect>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuConexiones">
+    <property name="title">
+     <string>Conexiones</string>
     </property>
-    <property name="toolTip">
-     <string>Widget para configuración de dispositivos EasyLoRa</string>
-    </property>
+    <addaction name="actionLoRa"/>
+    <addaction name="actionWiFi"/>
    </widget>
+   <addaction name="menuConexiones"/>
   </widget>
   <action name="actionConnect">
    <property name="text">
@@ -66,14 +70,17 @@
     <string>&amp;About</string>
    </property>
   </action>
+  <action name="actionLoRa">
+   <property name="text">
+    <string>LoRa</string>
+   </property>
+  </action>
+  <action name="actionWiFi">
+   <property name="text">
+    <string>WiFi</string>
+   </property>
+  </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>EasyLoRa_Widget</class>
-   <extends>QWidget</extends>
-   <header>EasyLoRa_Widget.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

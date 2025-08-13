@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EasyLoRa_Widget</class>
+ <widget class="QWidget" name="EasyLoRa_Widget">
+  <property name="windowModality">
+   <enum>Qt::WindowModality::ApplicationModal</enum>
+  </property>
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>557</width>
+    <height>298</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>EasyLoRa Widget</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label_port">
+       <property name="text">
+        <string>Port:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="combo_port"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="button_connect">
+       <property name="text">
+        <string>Connect</string>
+       </property>
+       <property name="icon">
+        <iconset theme="QIcon::ThemeIcon::MediaPlaybackStart"/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="button_cancel">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+       <property name="icon">
+        <iconset theme="QIcon::ThemeIcon::WindowClose"/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="1">
+    <widget class="QWidget" name="widget_configurations" native="true">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="4" column="0">
+       <widget class="QCheckBox" name="check_enableRSSI">
+        <property name="text">
+         <string>Enable RSSI</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QLabel" name="label_channel">
+          <property name="text">
+           <string>Channel:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="edit_channel"/>
+        </item>
+       </layout>
+      </item>
+      <item row="5" column="0">
+       <widget class="QCheckBox" name="check_enableLBT">
+        <property name="text">
+         <string>Enable LBT</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="check_RSSIByte">
+        <property name="text">
+         <string>Enable RSSI byte</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QPushButton" name="button_apply">
+        <property name="text">
+         <string>Apply</string>
+        </property>
+        <property name="icon">
+         <iconset theme="QIcon::ThemeIcon::ListAdd"/>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_baudRate">
+          <property name="text">
+           <string>Baudrate:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="combo_baudRate">
+          <item>
+           <property name="text">
+            <string>1200 bps</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>2400 bps</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>4800 bps</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>9600 bps</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>19200 bps</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>38400 bps</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>57600 bps</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>115200 bps</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="1">
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <widget class="QLabel" name="label_subpacketLength">
+          <property name="text">
+           <string>Subpacket length:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="combo_subpacketLength">
+          <item>
+           <property name="text">
+            <string>240 bytes</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>128 bytes</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>64 bytes</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>32 bytes</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout_10">
+        <item>
+         <widget class="QLabel" name="label_WORCycle">
+          <property name="text">
+           <string>WOR cycle:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="combo_WORCycle">
+          <item>
+           <property name="text">
+            <string>500 ms</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>1000 ms</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>1500 ms</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>2000 ms</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>2500 ms</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>3000 ms</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>3500 ms</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>4000 ms</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="1">
+       <widget class="QCheckBox" name="check_FixedMode">
+        <property name="text">
+         <string>Fixed point transmission</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="QLabel" name="label_parityByte">
+          <property name="text">
+           <string>Parity byte:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="combo_parityByte">
+          <item>
+           <property name="text">
+            <string>8N1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>8O1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>8E1</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="3" column="1">
+       <widget class="QCheckBox" name="check_WORMode">
+        <property name="text">
+         <string>Enable WOR mode</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QCheckBox" name="check_enableAbnormalLogs">
+        <property name="text">
+         <string>Enable abnormal logs</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QCheckBox" name="check_relayMode">
+        <property name="text">
+         <string>Relay mode</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QLabel" name="label_NETID">
+          <property name="text">
+           <string>NETID:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="edit_NETID"/>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <widget class="QLabel" name="label_airDataRate">
+          <property name="text">
+           <string>Air data rate:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="combo_airDataRate">
+          <item>
+           <property name="text">
+            <string>300 bps</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>1200 bps</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>2400 bps</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>4800 bps</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>9600 bps</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>19200 bps</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>38400 bps</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>62500 bps</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="2">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="label_address">
+          <property name="text">
+           <string>Address (0x):</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="edit_address"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

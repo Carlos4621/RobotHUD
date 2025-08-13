@@ -12,13 +12,14 @@ find_package(Qt6 REQUIRED COMPONENTS Core Widgets SerialPort)
 find_package(SDL2 REQUIRED)
 find_package(Protobuf REQUIRED)
 
-# Add the EasyLoRa_Widget subdirectory
-add_subdirectory(EasyLoRa_Widget)
+# Add the EasyLoRa subdirectory
+set(BUILD_AS_LIBRARY ON CACHE BOOL "Build EasyLoRa as library" FORCE)
+add_subdirectory(EasyLoRa)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOUIC_SEARCH_PATHS ui EasyLoRa_Widget/ui)
+set(CMAKE_AUTOUIC_SEARCH_PATHS ui)
 
 # Configure protobuf
 set(PROTO_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/RobotHUD_Proto)
@@ -45,6 +46,7 @@ set(SOURCES
     src/main.cpp
     src/RobotHUD.cpp
     src/Controller.cpp
+    src/EasyLoRa_Widget.cpp
     ${PROTO_SRCS}
 )
 
@@ -52,11 +54,13 @@ set(HEADERS
     include/RobotHUD.h
     include/RobotHUDExceptions.h
     include/Controller.h
+    include/EasyLoRa_Widget.h
     ${PROTO_HDRS}
 )
 
 set(UI_FILES
     ui/RobotHUD.ui
+    ui/EasyLoRa_Widget.ui
 )
 
 add_executable(RobotHUD ${SOURCES} ${HEADERS} ${UI_FILES})
@@ -67,7 +71,7 @@ target_link_libraries(RobotHUD
     Qt6::SerialPort
     SDL2::SDL2 
     SDL2::SDL2main
-    EasyLoRa_WidgetPlugin
+    easylora
     protobuf::libprotobuf
 )
 
@@ -75,9 +79,8 @@ target_include_directories(RobotHUD PRIVATE
     include 
     src 
     ui 
-    EasyLoRa_Widget/include
-    EasyLoRa_Widget/EasyLoRa/include
-    EasyLoRa_Widget/EasyLoRa/external/serial/include
+    EasyLoRa/include
+    external/serial/include
     ${CMAKE_CURRENT_BINARY_DIR}
     ${EASYLORA_INCLUDE_DIRS}
 )
