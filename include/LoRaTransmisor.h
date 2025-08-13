@@ -7,7 +7,7 @@
 
 class LoRaTransmisor : public IOCommons {
 public:
-    LoRaTransmisor(const std::shared_ptr<EasyLoRa>& device);
+    explicit LoRaTransmisor(const std::shared_ptr<EasyLoRa>& device);
 
     void sendData(std::string_view data) override;
 

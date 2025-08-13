@@ -19,7 +19,21 @@
   <property name="windowTitle">
    <string>Robot HUD</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="buttonTest">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>310</y>
+      <width>88</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>test!</string>
+    </property>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>

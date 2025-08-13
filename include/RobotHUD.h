@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #include "Controller.h"
 #include "EasyLoRa_Widget.h"
+#include "EasyUDP_Widget.h"
 
 QT_BEGIN_NAMESPACE
 class QWidget;
@@ -17,23 +18,20 @@ class RobotHUD : public QMainWindow
     Q_OBJECT
 
 public:
-    RobotHUD(QWidget *parent = nullptr);
-    ~RobotHUD();
+    explicit RobotHUD(QWidget *parent = nullptr);
+    ~RobotHUD() noexcept;
 
 private slots:
     void testController();
-
-    void onPushOpenLoRaMenu();
+    void startTestTimer();
 
 private:
     Ui::RobotHUD *ui;
 
     QTimer* testTimer_m;
     Controller* controller_m;
-    QDialog* LoRaConfigurationMenu_m;
     EasyLoRa_Widget* easyLoRaWidget_m;
-
-    void setupLoRaMenuDialog();
+    EasyUDP_Widget* easyUDPWidget_m;
 };
 
 #endif // ROBOTHUD_H

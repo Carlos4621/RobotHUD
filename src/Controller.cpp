@@ -57,5 +57,8 @@ void Controller::refreshController() {
     
     data_m.mutable_rightjoystick()->set_x_axis(mapAxis(SDL_GameControllerGetAxis(controller_m, SDL_CONTROLLER_AXIS_RIGHTX)));
     data_m.mutable_rightjoystick()->set_y_axis(mapAxis(SDL_GameControllerGetAxis(controller_m, SDL_CONTROLLER_AXIS_RIGHTY)));
+
+    data_m.mutable_leftjoystick()->set_x_axis(mapAxis(SDL_GameControllerGetAxis(controller_m, SDL_CONTROLLER_AXIS_LEFTX)));
+    data_m.mutable_leftjoystick()->set_y_axis(mapAxis(SDL_GameControllerGetAxis(controller_m, SDL_CONTROLLER_AXIS_LEFTY)));
 }
 

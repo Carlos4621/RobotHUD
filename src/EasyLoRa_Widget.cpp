@@ -2,8 +2,8 @@
 #include "ui_EasyLoRa_Widget.h"
 
 EasyLoRa_Widget::EasyLoRa_Widget(QWidget *parent)
-    : QWidget{ parent }
-    , ui{ new Ui_EasyLoRa_Widget{} } 
+: QDialog{ parent }
+, ui{ new Ui_EasyLoRa_Widget{} } 
 {
     ui->setupUi(this);
 
@@ -11,7 +11,7 @@ EasyLoRa_Widget::EasyLoRa_Widget(QWidget *parent)
     ui->widget_configurations->setEnabled(false);
 
     connect(ui->button_connect, &QPushButton::pressed, this, &EasyLoRa_Widget::onPushConnect);
-    connect(ui->button_cancel, &QPushButton::pressed, this, &EasyLoRa_Widget::cancelButtonPressed);
+    connect(ui->button_cancel, &QPushButton::pressed, this, &EasyLoRa_Widget::close);
     connect(ui->button_apply, &QPushButton::pressed, this, &EasyLoRa_Widget::onPushApply);
 }
 
@@ -19,7 +19,7 @@ EasyLoRa_Widget::~EasyLoRa_Widget() {
     delete ui;
 }
 
-std::shared_ptr<EasyLoRa> EasyLoRa_Widget::getEasyLoRa() const noexcept {
+std::shared_ptr<EasyLoRa> EasyLoRa_Widget::getDevice() const noexcept {
     return easyLoRa_m;
 }
 

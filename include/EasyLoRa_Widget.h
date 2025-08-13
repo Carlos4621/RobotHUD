@@ -6,12 +6,13 @@
 #include <memory>
 #include <QMessageBox>
 #include <QSerialPortInfo>
+#include <QDialog>
 
 QT_BEGIN_NAMESPACE
 class Ui_EasyLoRa_Widget;
 QT_END_NAMESPACE
 
-class EasyLoRa_Widget : public QWidget
+class EasyLoRa_Widget : public QDialog
 {
     Q_OBJECT
 
@@ -19,10 +20,7 @@ public:
     explicit EasyLoRa_Widget(QWidget *parent = nullptr);
     ~EasyLoRa_Widget();
 
-    std::shared_ptr<EasyLoRa> getEasyLoRa() const noexcept;
-
-signals:
-    void cancelButtonPressed();
+    std::shared_ptr<EasyLoRa> getDevice() const noexcept;
 
 private slots:
     void onPushConnect();

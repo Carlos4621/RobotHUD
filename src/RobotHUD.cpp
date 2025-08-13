@@ -1,38 +1,42 @@
 #include "RobotHUD.h"
 #include "ui_RobotHUD.h"
 #include "EasyLoRa_Widget.h"
+#include "EasyUDP_Widget.h"
 
 RobotHUD::RobotHUD(QWidget *parent)
 : QMainWindow{ parent }
 , ui{ new Ui::RobotHUD{} }
 , controller_m{ new Controller{this} }
 , testTimer_m{ new QTimer{this} }
-, LoRaConfigurationMenu_m{ new QDialog{this} }
-, easyLoRaWidget_m{ new EasyLoRa_Widget{LoRaConfigurationMenu_m} }
+, easyLoRaWidget_m{ new EasyLoRa_Widget{this} }
+, easyUDPWidget_m{ new EasyUDP_Widget{this} }
 {
     ui->setupUi(this);
+    testTimer_m->setInterval(100);
 
-    setupLoRaMenuDialog();
+    controller_m->setID(0);
 
-    connect(ui->actionLoRa, &QAction::triggered, this, &RobotHUD::onPushOpenLoRaMenu);
+    connect(ui->actionLoRa, &QAction::triggered, easyLoRaWidget_m, &QDialog::exec);
+
+    connect(ui->actionWiFi, &QAction::triggered, easyUDPWidget_m, &QDialog::exec);
+
+    connect(ui->buttonTest, &QPushButton::pressed, this, &RobotHUD::startTestTimer);
+    connect(testTimer_m, &QTimer::timeout, this, &RobotHUD::testController);
 }
 
 RobotHUD::~RobotHUD() {
     delete ui;
 }
 
-void RobotHUD::onPushOpenLoRaMenu() {
-    LoRaConfigurationMenu_m->exec();
-}
-
-void RobotHUD::setupLoRaMenuDialog() {
-    QVBoxLayout* layout{ new QVBoxLayout{LoRaConfigurationMenu_m} };
-    layout->addWidget(easyLoRaWidget_m);
-    LoRaConfigurationMenu_m->setLayout(layout);
-    LoRaConfigurationMenu_m->setWindowTitle("LoRa Configuration");
-    LoRaConfigurationMenu_m->setFixedSize(LoRaConfigurationMenu_m->sizeHint());
+void RobotHUD::startTestTimer() {
+    testTimer_m->start();
 }
 
 void RobotHUD::testController() {
+    const auto controllerData{ controller_m->getData() };
 
+    std::string toSend;
+    controllerData.SerializeToString(&toSend);
+
+    easyUDPWidget_m->getDevice()->sendData(toSend);
 }

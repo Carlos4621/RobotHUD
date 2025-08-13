@@ -47,6 +47,8 @@ set(SOURCES
     src/RobotHUD.cpp
     src/Controller.cpp
     src/EasyLoRa_Widget.cpp
+    src/EasyUDP_Widget.cpp
+    EasyUDP/EasyUDP.cpp
     ${PROTO_SRCS}
 )
 
@@ -55,12 +57,15 @@ set(HEADERS
     include/RobotHUDExceptions.h
     include/Controller.h
     include/EasyLoRa_Widget.h
+    include/EasyUDP_Widget.h
+    EasyUDP/EasyUDP.h
     ${PROTO_HDRS}
 )
 
 set(UI_FILES
     ui/RobotHUD.ui
     ui/EasyLoRa_Widget.ui
+    ui/EasyUDP_Widget.ui
 )
 
 add_executable(RobotHUD ${SOURCES} ${HEADERS} ${UI_FILES})
@@ -80,6 +85,7 @@ target_include_directories(RobotHUD PRIVATE
     src 
     ui 
     EasyLoRa/include
+    EasyUDP
     external/serial/include
     ${CMAKE_CURRENT_BINARY_DIR}
     ${EASYLORA_INCLUDE_DIRS}
