@@ -12,9 +12,9 @@ RobotHUD::RobotHUD(QWidget *parent)
 , easyUDPWidget_m{ new EasyUDP_Widget{this} }
 {
     ui->setupUi(this);
-    testTimer_m->setInterval(100);
 
     controller_m->setID(0);
+    testTimer_m->setInterval(100);
 
     connect(ui->actionLoRa, &QAction::triggered, easyLoRaWidget_m, &QDialog::exec);
 
@@ -46,10 +46,20 @@ void RobotHUD::onUDPConnected() {
 }
 
 void RobotHUD::testController() {
-    const auto controllerData{ controller_m->getData() };
+    try {
 
-    std::string toSend;
-    controllerData.SerializeToString(&toSend);
+        const auto data{ controller_m->getData() };
 
-    device_m->sendData(toSend);
+        std::string toSend;
+        if (!data.SerializeToString(&toSend)) {
+            throw std::runtime_error{ "DesearilizeError" };
+        }
+        
+        qDebug() << data.leftjoystick().y_axis() << "|" << data.rightjoystick().y_axis();
+
+        device_m->sendData(toSend);
+    }
+    catch(const std::exception& e) {
+        qDebug() << e.what();
+    }
 }

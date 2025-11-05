@@ -3,9 +3,11 @@
 
 EasyLoRa_Widget::EasyLoRa_Widget(QWidget *parent)
 : QDialog{ parent }
-, ui{ new Ui_EasyLoRa_Widget{} } 
+, ui{ new Ui_EasyLoRa_Widget{} }
+, portVerificationTimer_m{ new QTimer{this} }
 {
     ui->setupUi(this);
+    portVerificationTimer_m->setInterval(Port_Verification_Interval);
 
     listAvalaiblePorts();
     ui->widget_configurations->setEnabled(false);
@@ -13,6 +15,9 @@ EasyLoRa_Widget::EasyLoRa_Widget(QWidget *parent)
     connect(ui->button_connect, &QPushButton::pressed, this, &EasyLoRa_Widget::onPushConnect);
     connect(ui->button_cancel, &QPushButton::pressed, this, &EasyLoRa_Widget::close);
     connect(ui->button_apply, &QPushButton::pressed, this, &EasyLoRa_Widget::onPushApply);
+    connect(portVerificationTimer_m, &QTimer::timeout, this, &EasyLoRa_Widget::listAvalaiblePorts);
+
+    portVerificationTimer_m->start();
 }
 
 EasyLoRa_Widget::~EasyLoRa_Widget() {
@@ -30,7 +35,7 @@ void EasyLoRa_Widget::onPushApply() {
         easyLoRa_m->setConfiguration(newConfiguration);
     }
     catch(const std::exception& e) {
-        showErrorMessage(e.what());
+        showErrorMessage(e.what()); // TODO: También debo enviar una señal con el error?
     }
 }
 
@@ -59,7 +64,7 @@ void EasyLoRa_Widget::refreshConfiguration() {
         setEnableAbnormalLogs(actualConfiguration);
     }
     catch(const std::exception& e) {
-        showErrorMessage(e.what());
+        showErrorMessage(e.what()); // TODO: Debería mandar una señal con el error?
     }
 }
 
@@ -188,10 +193,21 @@ bool EasyLoRa_Widget::getEnableAbnormalLogs() {
 }
 
 void EasyLoRa_Widget::listAvalaiblePorts() {
+    const bool hasPreviousConnection{ !connectedPort_m.isEmpty() };
+    bool isPortFound{ false };
+    
     for (const auto& i : QSerialPortInfo::availablePorts()) {
         if (!i.description().isEmpty()) {
             ui->combo_port->addItem(i.systemLocation());
+
+            if (hasPreviousConnection && (i.systemLocation() == connectedPort_m)) {
+                isPortFound = true;
+            }
         }
+    }
+
+    if (hasPreviousConnection && !isPortFound) {
+        disconnectDevice();
     }
 }
 
@@ -219,6 +235,14 @@ ModuleConfig EasyLoRa_Widget::getBuiltConfiguration() {
     return configuration;
 }
 
+void EasyLoRa_Widget::disconnectDevice() {
+    connectedPort_m.clear();
+    ui->widget_configurations->setDisabled(true);
+    easyLoRa_m.reset();
+
+    emit deviceDisconnected();
+}
+
 void EasyLoRa_Widget::onPushConnect() {
     try {
         easyLoRa_m = std::make_shared<EasyLoRa>(ui->combo_port->currentText().toStdString());
@@ -226,9 +250,10 @@ void EasyLoRa_Widget::onPushConnect() {
         refreshConfiguration();
         ui->widget_configurations->setEnabled(true);
 
+        connectedPort_m = ui->combo_port->currentText();
         emit succesfulConnection();
     }
     catch(const std::exception& e) {
-        showErrorMessage(e.what());
+        showErrorMessage(e.what()); // TODO: Debería dar una señal con el error?
     }
 }

@@ -13,12 +13,17 @@ class QWidget;
 namespace Ui { class RobotHUD; }
 QT_END_NAMESPACE
 
+/// @brief Clase principal del programa
 class RobotHUD : public QMainWindow
 {
     Q_OBJECT
 
 public:
+
+    /// @brief Constructor del widget
+    /// @param parent Padre del widget
     explicit RobotHUD(QWidget *parent = nullptr);
+
     ~RobotHUD() noexcept;
 
 private slots:

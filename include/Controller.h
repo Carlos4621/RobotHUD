@@ -12,7 +12,10 @@ class Controller : public QObject
     Q_OBJECT
 
 public:
-    explicit Controller(QObject* parent);
+
+    /// @brief Constructor base
+    /// @param parent Padre del widget
+    explicit Controller(QObject* parent = nullptr);
 
     ~Controller() noexcept;
 
@@ -20,9 +23,13 @@ public:
     /// @param ID ID del control a usar
     void setID(uint8_t ID);
 
+    /// @brief Obtiene la última data obtenida del control
+    /// @return Última data obtenida
     [[nodiscard]]
     Controller_Data getData() const noexcept;
 
+    /// @brief Cambia la zona muerta del control
+    /// @param deadZone Nueva zona muerta
     void setDeadZone(uint8_t deadZone) noexcept;
 
 private slots:
