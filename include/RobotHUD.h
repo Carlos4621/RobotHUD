@@ -27,21 +27,33 @@ public:
     ~RobotHUD() noexcept;
 
 private slots:
-    void testController();
-    void startTestTimer();
+    void sendMessage();
+    void onStartButtonPressed();
 
     void onLoRaConnected();
     void onUDPConnected();
 
+    void onControllerConected();
+    void onControllerDisconected();
+
+    void onDeviceConected();
+    void onDeviceDisconnected();
+
 private:
+    static constexpr std::chrono::milliseconds Send_Interval{ 100 };
+    static constexpr uint8_t First_Controller_ID{ 0 };
+
     Ui::RobotHUD *ui;
 
-    QTimer* testTimer_m;
+    QTimer* sendTimer_m;
     Controller* controller_m;
     EasyLoRa_Widget* easyLoRaWidget_m;
     EasyUDP_Widget* easyUDPWidget_m;
 
     std::shared_ptr<IOCommons> device_m{ nullptr };
+
+    bool controllerConnected_m{ false };
+    bool deviceConnected_m{ false };
 };
 
 #endif // ROBOTHUD_H

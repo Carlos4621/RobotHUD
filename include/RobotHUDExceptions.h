@@ -21,19 +21,4 @@ private:
 
 };
 
-class CantOpenController : public std::exception {
-public:
-    explicit CantOpenController(uint8_t ID) 
-    : message_m{ std::string("Cant open controller with ID: ") + std::to_string(ID) }
-    {}
-
-    [[nodiscard]]
-    const char* what() const noexcept override {
-        return message_m.c_str();
-    }
-
-private:
-    std::string message_m;
-};
-
 #endif // !ROBOT_HUD_EXCEPTIONS_HEADER

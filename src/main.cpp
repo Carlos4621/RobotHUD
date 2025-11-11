@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     
     app.setApplicationName("RobotHUD");
     app.setApplicationVersion("1.0.0");
-    app.setOrganizationName("RobotHUD Inc.");
+    app.setOrganizationName("Carlos Iván");
     
     RobotHUD window;
     window.show();

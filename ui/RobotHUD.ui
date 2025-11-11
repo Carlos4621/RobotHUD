@@ -20,19 +20,6 @@
    <string>Robot HUD</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="buttonTest">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>200</y>
-      <width>88</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>test!</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
@@ -59,41 +46,46 @@
      </item>
     </layout>
    </widget>
-   <widget class="QLineEdit" name="edit_enviar">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>200</y>
-      <width>113</width>
-      <height>26</height>
+      <x>610</x>
+      <y>50</y>
+      <width>181</width>
+      <height>141</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QLabel" name="label_recibido">
-    <property name="geometry">
-     <rect>
-      <x>440</x>
-      <y>210</y>
-      <width>66</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="button_enviar">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>230</y>
-      <width>88</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Enviar</string>
-    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="startButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Start</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="stopButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Stop</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
