@@ -32,11 +32,16 @@ public:
     /// @param deadZone Nueva zona muerta
     void setDeadZone(uint8_t deadZone) noexcept;
 
+signals:
+    void controllerConnected();
+    void controllerDisconnected();
+
 private slots:
     void refreshController();
 
 private:
-    static constexpr uint8_t Refresh_Rate_In_Ms{ 16 };
+    static constexpr std::chrono::milliseconds Refresh_Rate{ 16 };
+
     static constexpr uint8_t Default_Dead_Zone{ 10 };
     static constexpr uint32_t Max_UnMaped_Value{ 32768 };
     static constexpr uint8_t Max_Maped_Value{ 100 };
@@ -45,10 +50,16 @@ private:
     QTimer* refreshTimer_m;
     Controller_Data data_m;
     uint8_t deadZone_m{ Default_Dead_Zone };
+    uint8_t controllerID_m;
+
+    bool disconnectionNotified{ false };
 
     [[nodiscard]]
     int8_t mapAxis(int32_t axis) const noexcept;
 
+    void tryReconnect();
+
+    bool isConnected() const noexcept;
 };
 
 #endif // !CONTROLLER_HEADER

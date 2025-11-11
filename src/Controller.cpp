@@ -10,7 +10,7 @@ Controller::Controller(QObject *parent)
 
     connect(refreshTimer_m, &QTimer::timeout, this, &Controller::refreshController);
 
-    refreshTimer_m->setInterval(Refresh_Rate_In_Ms);
+    refreshTimer_m->setInterval(Refresh_Rate);
     refreshTimer_m->start();
 }
 
@@ -21,13 +21,17 @@ Controller::~Controller() noexcept {
 void Controller::setID(uint8_t ID) {
     controller_m = SDL_GameControllerOpen(ID);
 
-    if (!controller_m) {
-        throw CantOpenController{ ID };
+    if (!isConnected()) {
+        emit controllerDisconnected();
+    } else {
+        emit controllerConnected();
     }
+
+    controllerID_m = ID;
 }
 
 Controller_Data Controller::getData() const noexcept {
-    if (!controller_m) {
+    if (!isConnected()) {
         return {};
     }
 
@@ -48,8 +52,27 @@ int8_t Controller::mapAxis(int32_t axis) const noexcept {
     return convertedAxis;
 }
 
+void Controller::tryReconnect() {
+    if (!disconnectionNotified) {
+        emit controllerDisconnected();
+        disconnectionNotified = true;
+    }
+    
+    controller_m = SDL_GameControllerOpen(controllerID_m);
+
+    if (isConnected()) {
+        emit controllerConnected();
+        disconnectionNotified = false;
+    }
+}
+
+bool Controller::isConnected() const noexcept {
+    return controller_m && SDL_GameControllerGetAttached(controller_m);
+}
+
 void Controller::refreshController() {
-    if (!controller_m) {
+    if (!isConnected()) {
+        tryReconnect();
         return;
     }
 
