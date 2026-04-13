@@ -194,15 +194,28 @@ bool EasyLoRa_Widget::getEnableAbnormalLogs() {
 
 void EasyLoRa_Widget::listAvalaiblePorts() {
     const bool hasPreviousConnection{ !connectedPort_m.isEmpty() };
+    const QString previousSelection{ ui->combo_port->currentText() };
     bool isPortFound{ false };
+
+    ui->combo_port->clear();
     
     for (const auto& i : QSerialPortInfo::availablePorts()) {
         if (!i.description().isEmpty()) {
-            ui->combo_port->addItem(i.systemLocation());
+            const auto portLocation{ i.systemLocation() };
+            ui->combo_port->addItem(portLocation);
 
-            if (hasPreviousConnection && (i.systemLocation() == connectedPort_m)) {
+            if (hasPreviousConnection && (portLocation == connectedPort_m)) {
                 isPortFound = true;
             }
+        }
+    }
+
+    if (hasPreviousConnection && isPortFound) {
+        ui->combo_port->setCurrentText(connectedPort_m);
+    } else if (!hasPreviousConnection && !previousSelection.isEmpty()) {
+        const auto selectionIndex{ ui->combo_port->findText(previousSelection) };
+        if (selectionIndex >= 0) {
+            ui->combo_port->setCurrentIndex(selectionIndex);
         }
     }
 
