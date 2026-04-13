@@ -1,40 +1,30 @@
 #include "Controller.h"
 
-Controller::Controller(QObject *parent) 
-: QObject{ parent }
-, refreshTimer_m{ new QTimer{this} }
+Controller::Controller(uint8_t ID)
+: controllerID_m{ ID }
 {
     if (SDL_Init(SDL_INIT_GAMECONTROLLER) != 0) {
         throw SDLError{ SDL_GetError() };
     }
 
-    connect(refreshTimer_m, &QTimer::timeout, this, &Controller::refreshController);
+    controller_m = SDL_GameControllerOpen(controllerID_m);
 
-    refreshTimer_m->setInterval(Refresh_Rate);
-    refreshTimer_m->start();
+    if (!isConnected()) {
+        throw ControllerNotConnected{ controllerID_m };
+    }
 }
 
 Controller::~Controller() noexcept {
     SDL_GameControllerClose(controller_m);
 }
 
-void Controller::setID(uint8_t ID) {
-    controller_m = SDL_GameControllerOpen(ID);
-
-    if (!isConnected()) {
-        emit controllerDisconnected();
-    } else {
-        emit controllerConnected();
-    }
-
-    controllerID_m = ID;
-}
-
-Controller_Data Controller::getData() const noexcept {
+Controller_Data Controller::getData() noexcept {
     if (!isConnected()) {
         return {};
     }
 
+    refreshController();
+    
     return data_m;
 }
 
@@ -52,18 +42,14 @@ int8_t Controller::mapAxis(int32_t axis) const noexcept {
     return convertedAxis;
 }
 
-void Controller::tryReconnect() {
-    if (!disconnectionNotified) {
-        emit controllerDisconnected();
-        disconnectionNotified = true;
+uint8_t Controller::mapTrigger(int32_t axis) const noexcept {
+    if (axis <= 0) {
+        return 0;
     }
-    
-    controller_m = SDL_GameControllerOpen(controllerID_m);
 
-    if (isConnected()) {
-        emit controllerConnected();
-        disconnectionNotified = false;
-    }
+    const auto convertedAxis{ static_cast<uint8_t>((axis * Max_Maped_Value) / Max_UnMaped_Value) };
+
+    return convertedAxis > Max_Maped_Value ? Max_Maped_Value : convertedAxis;
 }
 
 bool Controller::isConnected() const noexcept {
@@ -72,7 +58,6 @@ bool Controller::isConnected() const noexcept {
 
 void Controller::refreshController() {
     if (!isConnected()) {
-        tryReconnect();
         return;
     }
 
@@ -83,5 +68,8 @@ void Controller::refreshController() {
 
     data_m.mutable_leftjoystick()->set_x_axis(mapAxis(SDL_GameControllerGetAxis(controller_m, SDL_CONTROLLER_AXIS_LEFTX)));
     data_m.mutable_leftjoystick()->set_y_axis(mapAxis(SDL_GameControllerGetAxis(controller_m, SDL_CONTROLLER_AXIS_LEFTY)));
+
+    data_m.set_righttrigger(mapTrigger(SDL_GameControllerGetAxis(controller_m, SDL_CONTROLLER_AXIS_TRIGGERRIGHT)));
+    data_m.set_lefttrigger(mapTrigger(SDL_GameControllerGetAxis(controller_m, SDL_CONTROLLER_AXIS_TRIGGERLEFT)));
 }
 
