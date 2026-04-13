@@ -1,10 +1,7 @@
 #ifndef CONTROLLER_HEADER
 #define CONTROLLER_HEADER
 
-#include <QObject>
 #include <SDL.h>
-#include <QTimer>
-#include <QDebug>
 #include "RobotHUDExceptions.h"
 #include "Controller_Data.pb.h"
 
