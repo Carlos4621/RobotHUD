@@ -21,4 +21,19 @@ private:
 
 };
 
+class ControllerNotConnected : public std::exception {
+public:
+    explicit ControllerNotConnected(uint8_t ID)
+    : ID_m{ ID }
+    {}
+
+    [[nodiscard]]
+    const char* what() const noexcept override {
+        return std::format("El control con el ID {} no pudo ser conectado", ID_m).c_str();
+    }
+
+private:
+    uint8_t ID_m;
+};
+
 #endif // !ROBOT_HUD_EXCEPTIONS_HEADER
