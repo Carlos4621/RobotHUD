@@ -10,3 +10,6 @@
 [submodule "EasyUDP"]
 	path = EasyUDP
 	url = https://github.com/Carlos4621/EasyUDP
+[submodule "external/whisper.cpp"]
+	path = external/whisper.cpp
+	url = https://github.com/ggml-org/whisper.cpp

@@ -4,6 +4,7 @@
 #include <exception>
 #include <string>
 #include <cstdint>
+#include <format>
 
 class SDLError : public std::exception {
 public:
