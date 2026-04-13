@@ -4,7 +4,7 @@
 #include "EasyUDP_Widget.h"
 #include "MatLabel.h"
 #include "VideoRecognizer_Widget.h"
-#include "WiFiPacket.pb.h"
+#include "MultimediaData.pb.h"
 #include <opencv2/imgcodecs.hpp>
 #include <vector>
 
@@ -38,7 +38,7 @@ RobotHUD::RobotHUD(QWidget *parent)
     connect(ui->actionLoRa, &QAction::triggered, easyLoRaWidget_m, &QDialog::exec);
     connect(ui->actionWiFi, &QAction::triggered, easyUDPWidget_m, &QDialog::exec);
     connect(ui->actionControl, &QAction::triggered, controllerWidget_m, &QDialog::exec);
-    connect(ui->actionCamara, &QAction::triggered, videoRecognizerWidget_m, &VideoRecognizer_Widget::showConfigurationDialog);
+    connect(ui->actionReconocimiento, &QAction::triggered, videoRecognizerWidget_m, &VideoRecognizer_Widget::showConfigurationDialog);
 
     connect(ui->startButton, &QPushButton::pressed, this, &RobotHUD::onStartButtonPressed);
     connect(sendTimer_m, &QTimer::timeout, this, &RobotHUD::sendMessage);
@@ -136,7 +136,7 @@ void RobotHUD::receiveWiFiImage() {
             return;
         }
 
-        WiFiPacket packet;
+        MultimediaData packet;
         if (!packet.ParseFromString(payload)) {
             return;
         }

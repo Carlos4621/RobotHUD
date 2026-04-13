@@ -2,8 +2,10 @@
 #define EASY_UDP_WIDGET_HEADER
 
 #include <QDialog>
+#include <QSettings>
 #include <memory>
 #include "EasyUDP.h"
+#include "ModuleConfiguration.pb.h"
 
 QT_BEGIN_NAMESPACE
 class QWidget;
@@ -34,10 +36,15 @@ signals:
 private slots:
 
     void onPushConnect();
+    void onPushApply();
 
 private:
     Ui::Dialog* ui;
     std::shared_ptr<EasyUDP> device_m{ nullptr };
+    QSettings settings_m;
+
+    void loadSettings();
+    void saveSettings();
 
 };
 

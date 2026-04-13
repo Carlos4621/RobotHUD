@@ -38,7 +38,9 @@ set(PROTO_FILES
     ${PROTO_SOURCE_DIR}/Controller_Data.proto
     ${PROTO_SOURCE_DIR}/DPad.proto
     ${PROTO_SOURCE_DIR}/Joystick.proto
-    ${PROTO_SOURCE_DIR}/WiFiPacket.proto
+    ${PROTO_SOURCE_DIR}/MultimediaData.proto
+    ${PROTO_SOURCE_DIR}/MultimediaSettings.proto
+    ${PROTO_SOURCE_DIR}/Resolutions.proto
 )
 
 # Generate C++ files from proto files
